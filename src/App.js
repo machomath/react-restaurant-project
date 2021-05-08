@@ -15,7 +15,7 @@ function App() {
   const hideCartHandler = () => {
     setCartIsShown(false);
   }
-
+//another comment is added at line 18 in the fork
   return (
     <CartProvider>
       {cartIsShown && <Cart onClose={hideCartHandler}/>}
