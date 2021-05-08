@@ -11,8 +11,16 @@ const defaultCartState = {
 //component. It sits outside the component
 const cartReducer = (state, action) => { //action is the object sent by the dispatched
     if(action.type === 'ADD'){
-        const updatedItems = state.items.concat(action.item);
         const updatedTotalAmount = state.totalAmount + action.item.price*action.item.amount;
+        let updatedItems;
+        const existingCartItemIndex = state.items.findIndex(item=>item.id === action.item.id);
+        
+        if(existingCartItemIndex === -1){
+            updatedItems = state.items.concat(action.item);
+        }else{
+            state.items[existingCartItemIndex].amount += action.item.amount;
+            updatedItems = state.items;
+        }
         return (
             {
                 items: updatedItems,
@@ -21,7 +29,22 @@ const cartReducer = (state, action) => { //action is the object sent by the disp
         );
     }
     if(action.type === 'REMOVE'){
-        //need to fix it further
+        const existingCartItemIndex = state.items.findIndex(item=>item.id === action.id);
+        const updatedTotalAmount = state.totalAmount - state.items[existingCartItemIndex].price;
+
+        if(state.items[existingCartItemIndex].amount > 1){
+            state.items[existingCartItemIndex].amount--;
+        }else{
+            state.items.splice(existingCartItemIndex, 1);
+        }
+        let updatedItems = state.items;
+        return (
+            {
+                items: updatedItems,
+                totalAmount:updatedTotalAmount
+            }
+        );
+        
     }
     return defaultCartState;
 };
