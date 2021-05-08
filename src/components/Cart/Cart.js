@@ -15,10 +15,10 @@ const Cart = props => {
     };
 
     const cartItemAddHandler = item =>{
-        cartCtx.addItem({...item, amount: 1}); 
+        cartCtx.addItem({...item, amount: 1});  
     };
     
-    const cartItems = <ul className={classes['cart-item']}>
+    const cartItems = <ul className={classes['cart-items']}>
             {cartCtx.items.map(item => 
                 <CartItem  
                     key={item.id} 

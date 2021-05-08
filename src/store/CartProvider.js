@@ -19,7 +19,7 @@ const cartReducer = (state, action) => { //action is the object sent by the disp
             updatedItems = state.items.concat(action.item);
         }else{
             state.items[existingCartItemIndex].amount += action.item.amount;
-            updatedItems = state.items;
+            updatedItems = [...state.items];
         }
         return (
             {
@@ -37,7 +37,7 @@ const cartReducer = (state, action) => { //action is the object sent by the disp
         }else{
             state.items.splice(existingCartItemIndex, 1);
         }
-        let updatedItems = state.items;
+        let updatedItems = [...state.items];
         return (
             {
                 items: updatedItems,
